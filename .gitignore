@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+.cache/
+*.pt
+*.bin
+*.pkl
+*.safetensors
+english_model/emotion-music-model/model.safetensors
+english_model/emotion-music-model/training_args.bin
+english_model/emotion-music-model/checkpoint-12/
+/checkpoints/
+/data/
+

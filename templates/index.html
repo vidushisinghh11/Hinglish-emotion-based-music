@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emotion-Based Music Recommender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            padding: 30px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        label {
+            font-weight: bold;
+        }
+        .section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>🎧 Emotion-Based Music Recommender</h2>
+
+    <form method="POST" onsubmit="return validateForm()">
+        <textarea id="textInput" name="text" rows="3" placeholder="Enter your text here...">{{ text or '' }}</textarea>
+
+        <div class="section">
+            <label>Choose song language:</label><br>
+            <input type="radio" id="english" name="language" value="english" {% if language == 'english' %}checked{% endif %}>
+            <label for="english">English</label>
+            &nbsp;&nbsp;
+            <input type="radio" id="hindi" name="language" value="hindi" {% if language == 'hindi' %}checked{% endif %}>
+            <label for="hindi">Hindi</label>
+        </div>
+
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    {% if emotion %}
+        <div class="section">
+            <h3>🧠 Detected Emotion: <span style="color: teal;">{{ emotion }}</span></h3>
+        </div>
+    {% endif %}
+
+    {% if songs %}
+        <div class="section">
+            <h3>🎶 Recommended Songs</h3>
+            <ul>
+            {% for song in songs %}
+                <li><a href="{{ song.url }}" target="_blank">{{ song.name }} — {{ song.artist }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <script>
+        function validateForm() {
+            const text = document.getElementById('textInput').value.trim();
+            const languageSelected = document.querySelector('input[name="language"]:checked');
+
+            if (text === "") {
+                alert("Please enter your text before submitting.");
+                return false;
+            }
+
+            if (!languageSelected) {
+                alert("Please select a language before submitting.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
