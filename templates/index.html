@@ -8,19 +8,11 @@
             background: #f0f2f5;
             padding: 30px;
         }
-        input[type="text"], textarea {
+        textarea, select, button {
             width: 100%;
             padding: 10px;
             font-size: 1rem;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1rem;
             margin-top: 10px;
-            cursor: pointer;
-        }
-        label {
-            font-weight: bold;
         }
         .section {
             margin-top: 20px;
@@ -30,24 +22,23 @@
 <body>
     <h2>🎧 Emotion-Based Music Recommender</h2>
 
-    <form method="POST" onsubmit="return validateForm()">
-        <textarea id="textInput" name="text" rows="3" placeholder="Enter your text here...">{{ text or '' }}</textarea>
+    <form method="POST">
+        <textarea name="text" rows="3" placeholder="Enter your text here...">{{ text or '' }}</textarea>
 
         <div class="section">
-            <label>Choose song language:</label><br>
-            <input type="radio" id="english" name="language" value="english" {% if language == 'english' %}checked{% endif %}>
-            <label for="english">English</label>
-            &nbsp;&nbsp;
-            <input type="radio" id="hindi" name="language" value="hindi" {% if language == 'hindi' %}checked{% endif %}>
-            <label for="hindi">Hindi</label>
+            <label for="model">Select Model:</label>
+            <select name="model">
+                <option value="english" {% if model == 'english' %}selected{% endif %}>English</option>
+                <option value="hinglish" {% if model == 'hinglish' %}selected{% endif %}>Hinglish</option>
+            </select>
         </div>
 
         <button type="submit">Get Recommendations</button>
     </form>
 
-    {% if emotion %}
+    {% if emotions %}
         <div class="section">
-            <h3>🧠 Detected Emotion: <span style="color: teal;">{{ emotion }}</span></h3>
+            <h3>🧠 Detected Emotion: <span style="color: teal;">{{ emotions | join(', ') }}</span></h3>
         </div>
     {% endif %}
 
@@ -56,29 +47,10 @@
             <h3>🎶 Recommended Songs</h3>
             <ul>
             {% for song in songs %}
-                <li><a href="{{ song.url }}" target="_blank">{{ song.name }} — {{ song.artist }}</a></li>
+                <li><a href="{{ song.url }}" target="_blank">{{ song.name }}</a></li>
             {% endfor %}
             </ul>
         </div>
     {% endif %}
-
-    <script>
-        function validateForm() {
-            const text = document.getElementById('textInput').value.trim();
-            const languageSelected = document.querySelector('input[name="language"]:checked');
-
-            if (text === "") {
-                alert("Please enter your text before submitting.");
-                return false;
-            }
-
-            if (!languageSelected) {
-                alert("Please select a language before submitting.");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
 </body>
 </html>

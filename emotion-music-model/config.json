@@ -10,7 +10,7 @@
   "id2label": {
     "0": "anger",
     "1": "fear",
-    "2": "joy",
+    "2": "happy",
     "3": "love",
     "4": "sadness",
     "5": "surprise"
@@ -19,7 +19,7 @@
   "label2id": {
     "anger": 0,
     "fear": 1,
-    "joy": 2,
+    "happy": 2,
     "love": 3,
     "sadness": 4,
     "surprise": 5
@@ -35,6 +35,6 @@
   "sinusoidal_pos_embds": false,
   "tie_weights_": true,
   "torch_dtype": "float32",
-  "transformers_version": "4.51.3",
+  "transformers_version": "4.53.0",
   "vocab_size": 30522
 }
