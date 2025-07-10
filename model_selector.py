@@ -2,7 +2,7 @@ from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassifica
 import re
 
 # ✅ Local model paths (relative to your working directory)
-ENGLISH_MODEL_PATH = "english_music_model"
+ENGLISH_MODEL_PATH = "emotion-music-model"
 HINGLISH_MODEL_PATH = "hinglish_model/hing-emotion-model"
 
 # 🔁 Load English model (local only)
@@ -23,9 +23,10 @@ def is_hinglish(text):
     return any(word in text.lower() for word in hinglish_keywords) or re.search(r"[\u0900-\u097F]", text)
 
 # 🧠 Emotion detection interface
-def detect_emotion(text, top_k=1):
+def detect_emotion(text, model_, top_k=1):
     language = "hinglish" if is_hinglish(text) else "english"
     classifier = hinglish_classifier if language == "hinglish" else english_classifier
     result = classifier(text)
-    top_emotions = sorted(result[0], key=lambda x: x['score'], reverse=True)[:top_k]
+   
+    top_emotions = sorted(result[0], key=lambda x: x['score'], reverse=True)[:int(top_k)]
     return [e['label'].lower() for e in top_emotions], language

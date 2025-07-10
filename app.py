@@ -15,7 +15,7 @@ def index():
         text = request.form['text']
         model_choice = request.form.get('model', 'hinglish')
         emotions = detect_emotion(text, model_choice)
-        songs = recommend_songs(emotions[0], language="hindi" if model_choice == "hinglish" else "english")
+        songs = recommend_songs(emotions[0][0], language="hindi" if model_choice == "hinglish" else "english")
 
     return render_template('index.html', text=text, emotions=emotions, songs=songs, model=model_choice)
 

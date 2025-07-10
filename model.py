@@ -14,6 +14,8 @@ def detect_emotion(text):
     """
     result = classifier(text)
     print("Raw model output:", result)
+    top_k = 1
+    top_emotions = sorted(result[0], key=lambda x: x['score'], reverse=True)[:int(top_k)]
+
     
-    top_emotions = sorted(result[0], key=lambda x: x['score'], reverse=True)[:2]
     return [e['label'].lower() for e in top_emotions]
